@@ -46,8 +46,9 @@ void setup() {
 }
 
 void draw() {
-  if (millis() % 1000 == 0){
+  if (millis() % 5 == 0){
     checkTilt();
+    println("CHECKING TILT");
   }
   
   // If there's incoming data from the client:
@@ -148,5 +149,5 @@ void checkTilt(){
 void oscEvent(OscMessage theOscMessage){
   pitch = theOscMessage.get(0).floatValue();
   //println(theOscMessage);
-  println("PITCH : " + pitch);
+  //println("PITCH : " + pitch);
 }
