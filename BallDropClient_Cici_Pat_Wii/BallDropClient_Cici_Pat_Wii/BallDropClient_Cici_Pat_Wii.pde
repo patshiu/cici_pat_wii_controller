@@ -20,7 +20,8 @@ import netP5.*;
 
 Client myClient;                   // instance of the net Client
 String data;                       // string to hold incoming data
-String ipAddress = "127.0.0.1";    // address of the server goes here
+String ipAddress = "128.122.151.74";    // address of the server goes here
+//String ipAddress = "172.16.234.47";
 
 boolean downCombo = false;
 boolean upCombo = false;
@@ -38,6 +39,9 @@ void setup() {
   fill(200);
   // Connect to server on port 8080
   myClient = new Client(this, ipAddress, 8080);
+  //myClient.write("n=Pat\n");
+  //myClient.write("i");
+  
   // Start oscP5, listening for incoming messages at port 12000
   oscP5 = new OscP5(this,12000);
   myRemoteLocation = new NetAddress("127.0.0.1",12000);
@@ -48,7 +52,7 @@ void setup() {
 void draw() {
   if (millis() % 5 == 0){
     checkTilt();
-    println("CHECKING TILT");
+    //println("CHECKING TILT");
   }
   
   // If there's incoming data from the client:
@@ -77,18 +81,26 @@ void keyPressed() {
     downCombo = true; 
   }
   
+  if (keyCode == 57){ //extreme left
+    myClient.write("lllll\r");
+  }
+  
+  if (keyCode == 48){ //extreme right
+    myClient.write("rrrrr\r");
+  }
+  
   if (keyCode == 38){
-    myClient.write("uuuu\r");
+    myClient.write("uuuuu\r");
   }
   if (keyCode == 40){
-    myClient.write("dddd\r");
+    myClient.write("ddddd\r");
   }
   if (keyCode == 37){
     if (upCombo == true){
       myClient.write("ul\r");
     }
     if (downCombo == true){
-      myClient.write("ddddl\r");
+      myClient.write("ddddddl\r");
     } 
     else {
     myClient.write("l\r");
@@ -99,7 +111,7 @@ void keyPressed() {
       myClient.write("ur\r");
     }
     if (downCombo == true){
-      myClient.write("ddddr\r");
+      myClient.write("ddddddr\r");
     }
     else {
       myClient.write("r\r");
